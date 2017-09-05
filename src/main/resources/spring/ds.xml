@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx-4.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <description>Spring DataSource configuration</description>
+
+    <context:property-placeholder location="classpath*:properties/ds.properties" />
+
+    <!-- datasource -->
+    <bean id="sampleDs" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="jdbcUrl" value="${jdbc.sample.url}" />
+        <property name="username" value="${jdbc.sample.user}" />
+        <property name="password" value="${jdbc.sample.password}" />
+        <property name="maximumPoolSize" value="${jdbc.sample.maximumPoolSize}"/>
+    </bean>
+
+    <!-- transaction manager -->
+   <!-- <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="sampleDs" />
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager" mode="proxy"/>-->
+
+    <!-- mybatis factory -->
+    <bean id="sampleSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="sampleDs"/>
+        <!--<property name="configLocation" value="classpath:mybatis.xml"/>-->
+        <property name="mapperLocations" value="classpath*:com/example/sample/mapper/*.xml"/>
+    </bean>
+
+    <!-- scan mappers under the dao dir -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sampleSqlSessionFactory"/>
+        <property name="basePackage" value="com.example.sample.dao.mapper"/>
+    </bean>
+</beans>
