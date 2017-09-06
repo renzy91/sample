@@ -5,3 +5,11 @@ springboot+mybatis
     mybatis.mapper-locations=classpath*:com/example/sample/mapper/*.xml
 
     dao接口中@Mapper，有实现的dao接口中@Repository
+
+整合redis
+     RedisTemplate设置序列化方式（见RedisController）
+     //设置value序列化方式
+     redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<Object>(Object.class));
+     //设置key序列化方式
+     redisTemplate.setKeySerializer(new StringRedisSerializer());
+
