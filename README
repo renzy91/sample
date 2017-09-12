@@ -1,0 +1,7 @@
+springboot+mybatis
+    配置文件application.properties中
+    #mybatis
+    mybatis.type-aliases-package=com.example.sample.dao
+    mybatis.mapper-locations=classpath*:com/example/sample/mapper/*.xml
+
+    dao接口中@Mapper，有实现的dao接口中@Repository
