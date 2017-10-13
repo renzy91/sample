@@ -3,6 +3,7 @@ package com.example.sample.controller;
 import com.example.sample.database.User;
 import com.example.sample.service.UserService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,8 +32,9 @@ public class UserController {
        userService.insertUser(user);
     }
 
+    @ApiOperation(value = "查询", notes = "查询")
     @RequestMapping(value = "/select", method = RequestMethod.POST)
-    public User select(String id) {
+    public User select(User u) {
         User user = new User();
         user.setId(111);
         user.setAge(222);
