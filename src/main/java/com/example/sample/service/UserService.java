@@ -9,4 +9,5 @@ import com.example.sample.database.User;
  */
 public interface UserService {
     void insertUser(User user);
+
 }

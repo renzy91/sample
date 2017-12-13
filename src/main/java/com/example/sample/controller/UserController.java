@@ -2,6 +2,8 @@ package com.example.sample.controller;
 
 import com.example.sample.database.User;
 import com.example.sample.service.UserService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,7 +25,8 @@ public class UserController {
      */
     @RequestMapping("/insert")
     public void insert(User user) {
-       userService.insertUser(user);
+        PageHelper.startPage(1, 10);
+        userService.insertUser(user);
     }
 
 }
