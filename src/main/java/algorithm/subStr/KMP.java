@@ -39,7 +39,11 @@ public class KMP {
             if (prefix == -1 || ptr[prefix] == ptr[suffix]) {
                 prefix++;
                 suffix++;
-                next[suffix] = prefix;
+                if (ptr[prefix] == ptr[suffix]) {
+                    next[suffix] = next[prefix];
+                } else {
+                    next[suffix] = prefix;
+                }
             } else {
                 prefix = next[prefix];
             }
