@@ -41,6 +41,49 @@ public class BinaryTree<E> {
         }
     }
 
+    //后序遍历 左-根-右
+    public void suf() {
+        doSuf(root);
+    }
+
+    private void doSuf(Node<E> node) {
+        if (node == null) {
+            return;
+        }
+        doSuf(node.left);
+        doSuf(node.right);
+        System.out.print(node.ele);
+    }
+
+    //中序遍历 左-根-右
+    public void inf() {
+        doInf(root);
+    }
+
+    private void doInf(Node<E> node) {
+        if (node == null) {
+            return;
+        }
+
+        doInf(node.left);
+        System.out.print(node.ele);
+        doInf(node.right);
+    }
+
+    //先序遍历  根-左-右
+    public void pre() {
+        doPre(root);
+        System.out.println();
+    }
+
+    private void doPre(Node<E> node) {
+        if (node == null) {
+            return;
+        }
+        System.out.print(node.ele + " ");
+        doPre(node.left);
+        doPre(node.right);
+    }
 
     class Node<E> {
         E ele;
@@ -51,7 +94,7 @@ public class BinaryTree<E> {
     public static void main(String[] args) {
         BinaryTree<Integer> binTree = new BinaryTree<>(Arrays.asList(0,1,2,3,4,5,6,7,8,9));
 
-        System.out.println();
+        binTree.suf();
 
     }
 
