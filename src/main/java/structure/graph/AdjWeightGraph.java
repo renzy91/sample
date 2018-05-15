@@ -18,20 +18,21 @@ public class AdjWeightGraph {
 
         //构建邻接链表
         EdgeNode edgeNode = null;
+        int tail, head, weight;
         for (int i = 0; i < linkInfos.length; i++) {
-            int head = linkInfos[i].getEdgeHead();
-            int tail = linkInfos[i].getEdgeTail();
-            int weight = linkInfos[i].getWeight();
+            tail = linkInfos[i].getEdgeTail();
+            head = linkInfos[i].getEdgeHead();
+            weight = linkInfos[i].getWeight();
 
-            if (vertexArray[head].getFirst() == null) {
-                vertexArray[head].setFirst(new EdgeNode(tail, weight));
+            if (vertexArray[tail].getFirst() == null) {
+                vertexArray[tail].setFirst(new EdgeNode(head, weight));
                 continue;
             }
-            edgeNode = vertexArray[head].getFirst();
+            edgeNode = vertexArray[tail].getFirst();
             while (edgeNode.getNext() != null) {
                 edgeNode = edgeNode.getNext();
             }
-            edgeNode.setNext(new EdgeNode(tail, weight));
+            edgeNode.setNext(new EdgeNode(head, weight));
         }
 
     }
@@ -65,7 +66,7 @@ public class AdjWeightGraph {
     }
 
     /**
-     * 边节点
+     * 弧节点
      */
     class EdgeNode {
         int vertexIndex;
@@ -109,13 +110,13 @@ public class AdjWeightGraph {
      * weight:权重
      */
     public static class LinkInfo {
-        int edgeHead;
         int edgeTail;
+        int edgeHead;
         int weight;
 
-        public LinkInfo(int edgeHead, int edgeTail, int weight) {
-            this.edgeHead = edgeHead;
+        public LinkInfo(int edgeTail, int edgeHead, int weight) {
             this.edgeTail = edgeTail;
+            this.edgeHead = edgeHead;
             this.weight = weight;
         }
 

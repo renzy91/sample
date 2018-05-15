@@ -53,13 +53,13 @@ public class MatrixWeightGraph {
      * weight:权重
      */
     public static class LinkInfo {
-        int edgeHead;
         int edgeTail;
+        int edgeHead;
         int weight;
 
-        public LinkInfo(int edgeHead, int edgeTail, int weight) {
-            this.edgeHead = edgeHead;
+        public LinkInfo(int edgeTail, int edgeHead, int weight) {
             this.edgeTail = edgeTail;
+            this.edgeHead = edgeHead;
             this.weight = weight;
         }
 
