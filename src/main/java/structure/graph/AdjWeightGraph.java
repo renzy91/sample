@@ -17,7 +17,7 @@ public class AdjWeightGraph {
         }
 
         //构建邻接链表
-        EdgeNode edgeNode = null;
+        EdgeNode edgeNode;
         int tail, head, weight;
         for (int i = 0; i < linkInfos.length; i++) {
             tail = linkInfos[i].getEdgeTail();

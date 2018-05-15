@@ -11,17 +11,27 @@ public class OrthWeightGraph {
     public OrthWeightGraph(String[] vertex, LinkInfo[] linkInfos) {
         this.vertexArray = new VertexNode[vertex.length];
 
+        //初始化顶点数组
         for (int i = 0; i < vertex.length; i++) {
             vertexArray[i] = new VertexNode(vertex[i]);
         }
 
+        //建立弧链表
         int head, tail, weight;
+        EdgeNode node;
         for (int i = 0; i < linkInfos.length; i++) {
-            head = linkInfos[i].getEdgeHead();
             tail = linkInfos[i].getEdgeTail();
+            head = linkInfos[i].getEdgeHead();
             weight = linkInfos[i].getWeight();
 
-//            vertexArray[head].
+            //头插发,同弧尾
+            node = new EdgeNode(head, tail, weight);
+            node.setTailLink(vertexArray[tail].getFirstOut());
+            vertexArray[tail].setFirstOut(node);
+
+            //头插发，同弧头
+            node.setHeadLink(vertexArray[head].getFirstIn());
+            vertexArray[head].setFirstIn(node);
         }
     }
 
@@ -61,8 +71,23 @@ public class OrthWeightGraph {
     class EdgeNode {
         private int headVertex;
         private int tailVertex;
+        private int weight;
         private EdgeNode headLink;
         private EdgeNode tailLink;
+
+        public EdgeNode(int headVertex, int tailVertex, int weight) {
+            this.headVertex = headVertex;
+            this.tailVertex = tailVertex;
+            this.weight = weight;
+        }
+
+        public int getWeight() {
+            return weight;
+        }
+
+        public void setWeight(int weight) {
+            this.weight = weight;
+        }
 
         public int getHeadVertex() {
             return headVertex;
@@ -104,13 +129,13 @@ public class OrthWeightGraph {
      * weight:权重
      */
     public static class LinkInfo {
-        int edgeHead;
         int edgeTail;
+        int edgeHead;
         int weight;
 
-        public LinkInfo(int edgeHead, int edgeTail, int weight) {
-            this.edgeHead = edgeHead;
+        public LinkInfo(int edgeTail, int edgeHead, int weight) {
             this.edgeTail = edgeTail;
+            this.edgeHead = edgeHead;
             this.weight = weight;
         }
 
@@ -147,9 +172,10 @@ public class OrthWeightGraph {
                 new LinkInfo(1, 2, 20),
                 new LinkInfo(2, 0, 30),
                 new LinkInfo(0, 2, 40),
+                new LinkInfo(2, 1, 50),
         };
 
-//        AdjWeightGraph graph = new AdjWeightGraph(vertex, linkInfo);
+        OrthWeightGraph graph = new OrthWeightGraph(vertex, linkInfo);
 
         System.out.println();
     }
