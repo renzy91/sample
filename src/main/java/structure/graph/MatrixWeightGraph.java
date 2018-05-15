@@ -2,7 +2,7 @@ package structure.graph;
 
 /**
  * @author renzhiyong
- * @description:带权重的邻接矩阵图
+ * @description:邻接矩阵存储有向网
  * @date 2018-05-13 23:02
  */
 public class MatrixWeightGraph {
