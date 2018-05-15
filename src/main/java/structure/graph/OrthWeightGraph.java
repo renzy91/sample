@@ -2,7 +2,7 @@ package structure.graph;
 
 /**
  * @author renzhiyong
- * @description:十字链表网
+ * @description:十字链表有向网
  * @date 2018-05-15 18:29
  */
 public class OrthWeightGraph {
@@ -18,14 +18,14 @@ public class OrthWeightGraph {
 
         //建立弧链表
         int head, tail, weight;
-        EdgeNode node;
+        ArcNode node;
         for (int i = 0; i < linkInfos.length; i++) {
-            tail = linkInfos[i].getEdgeTail();
-            head = linkInfos[i].getEdgeHead();
+            tail = linkInfos[i].getArcTail();
+            head = linkInfos[i].getArcHead();
             weight = linkInfos[i].getWeight();
 
             //头插发,同弧尾
-            node = new EdgeNode(head, tail, weight);
+            node = new ArcNode(head, tail, weight);
             node.setTailLink(vertexArray[tail].getFirstOut());
             vertexArray[tail].setFirstOut(node);
 
@@ -37,8 +37,8 @@ public class OrthWeightGraph {
 
     class VertexNode {
         private Object data;
-        private EdgeNode firstIn;
-        private EdgeNode firstOut;
+        private ArcNode firstIn;
+        private ArcNode firstOut;
 
         public VertexNode(Object data) {
             this.data = data;
@@ -52,30 +52,30 @@ public class OrthWeightGraph {
             this.data = data;
         }
 
-        public EdgeNode getFirstIn() {
+        public ArcNode getFirstIn() {
             return firstIn;
         }
 
-        public void setFirstIn(EdgeNode firstIn) {
+        public void setFirstIn(ArcNode firstIn) {
             this.firstIn = firstIn;
         }
 
-        public EdgeNode getFirstOut() {
+        public ArcNode getFirstOut() {
             return firstOut;
         }
 
-        public void setFirstOut(EdgeNode firstOut) {
+        public void setFirstOut(ArcNode firstOut) {
             this.firstOut = firstOut;
         }
     }
-    class EdgeNode {
+    class ArcNode {
         private int headVertex;
         private int tailVertex;
         private int weight;
-        private EdgeNode headLink;
-        private EdgeNode tailLink;
+        private ArcNode headLink;
+        private ArcNode tailLink;
 
-        public EdgeNode(int headVertex, int tailVertex, int weight) {
+        public ArcNode(int headVertex, int tailVertex, int weight) {
             this.headVertex = headVertex;
             this.tailVertex = tailVertex;
             this.weight = weight;
@@ -105,19 +105,19 @@ public class OrthWeightGraph {
             this.tailVertex = tailVertex;
         }
 
-        public EdgeNode getHeadLink() {
+        public ArcNode getHeadLink() {
             return headLink;
         }
 
-        public void setHeadLink(EdgeNode headLink) {
+        public void setHeadLink(ArcNode headLink) {
             this.headLink = headLink;
         }
 
-        public EdgeNode getTailLink() {
+        public ArcNode getTailLink() {
             return tailLink;
         }
 
-        public void setTailLink(EdgeNode tailLink) {
+        public void setTailLink(ArcNode tailLink) {
             this.tailLink = tailLink;
         }
     }
@@ -129,30 +129,30 @@ public class OrthWeightGraph {
      * weight:权重
      */
     public static class LinkInfo {
-        int edgeTail;
-        int edgeHead;
+        int arcTail;
+        int arcHead;
         int weight;
 
-        public LinkInfo(int edgeTail, int edgeHead, int weight) {
-            this.edgeTail = edgeTail;
-            this.edgeHead = edgeHead;
+        public LinkInfo(int arcTail, int arcHead, int weight) {
+            this.arcTail = arcTail;
+            this.arcHead = arcHead;
             this.weight = weight;
         }
 
-        public int getEdgeHead() {
-            return edgeHead;
+        public int getArcTail() {
+            return arcTail;
         }
 
-        public void setEdgeHead(int edgeHead) {
-            this.edgeHead = edgeHead;
+        public void setArcTail(int arcTail) {
+            this.arcTail = arcTail;
         }
 
-        public int getEdgeTail() {
-            return edgeTail;
+        public int getArcHead() {
+            return arcHead;
         }
 
-        public void setEdgeTail(int edgeTail) {
-            this.edgeTail = edgeTail;
+        public void setArcHead(int arcHead) {
+            this.arcHead = arcHead;
         }
 
         public int getWeight() {

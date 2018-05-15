@@ -17,22 +17,22 @@ public class AdjWeightGraph {
         }
 
         //构建邻接链表
-        EdgeNode edgeNode;
+        ArcNode edgeNode;
         int tail, head, weight;
         for (int i = 0; i < linkInfos.length; i++) {
-            tail = linkInfos[i].getEdgeTail();
-            head = linkInfos[i].getEdgeHead();
+            tail = linkInfos[i].getArcTail();
+            head = linkInfos[i].getArcHead();
             weight = linkInfos[i].getWeight();
 
             if (vertexArray[tail].getFirst() == null) {
-                vertexArray[tail].setFirst(new EdgeNode(head, weight));
+                vertexArray[tail].setFirst(new ArcNode(head, weight));
                 continue;
             }
             edgeNode = vertexArray[tail].getFirst();
             while (edgeNode.getNext() != null) {
                 edgeNode = edgeNode.getNext();
             }
-            edgeNode.setNext(new EdgeNode(head, weight));
+            edgeNode.setNext(new ArcNode(head, weight));
         }
 
     }
@@ -42,7 +42,7 @@ public class AdjWeightGraph {
      */
     class VertexNode {
         private Object data;
-        private EdgeNode first;
+        private ArcNode first;
 
         public VertexNode(Object data) {
             this.data = data;
@@ -56,11 +56,11 @@ public class AdjWeightGraph {
             this.data = data;
         }
 
-        public EdgeNode getFirst() {
+        public ArcNode getFirst() {
             return first;
         }
 
-        public void setFirst(EdgeNode first) {
+        public void setFirst(ArcNode first) {
             this.first = first;
         }
     }
@@ -68,12 +68,12 @@ public class AdjWeightGraph {
     /**
      * 弧节点
      */
-    class EdgeNode {
+    class ArcNode {
         int vertexIndex;
         int weight;
-        EdgeNode next;
+        ArcNode next;
 
-        public EdgeNode(int vertexIndex, int weight) {
+        public ArcNode(int vertexIndex, int weight) {
             this.vertexIndex = vertexIndex;
             this.weight = weight;
         }
@@ -94,11 +94,11 @@ public class AdjWeightGraph {
             this.weight = weight;
         }
 
-        public EdgeNode getNext() {
+        public ArcNode getNext() {
             return next;
         }
 
-        public void setNext(EdgeNode next) {
+        public void setNext(ArcNode next) {
             this.next = next;
         }
     }
@@ -110,30 +110,30 @@ public class AdjWeightGraph {
      * weight:权重
      */
     public static class LinkInfo {
-        int edgeTail;
-        int edgeHead;
+        int arcTail;
+        int arcHead;
         int weight;
 
-        public LinkInfo(int edgeTail, int edgeHead, int weight) {
-            this.edgeTail = edgeTail;
-            this.edgeHead = edgeHead;
+        public LinkInfo(int arcTail, int arcHead, int weight) {
+            this.arcTail = arcTail;
+            this.arcHead = arcHead;
             this.weight = weight;
         }
 
-        public int getEdgeHead() {
-            return edgeHead;
+        public int getArcTail() {
+            return arcTail;
         }
 
-        public void setEdgeHead(int edgeHead) {
-            this.edgeHead = edgeHead;
+        public void setArcTail(int arcTail) {
+            this.arcTail = arcTail;
         }
 
-        public int getEdgeTail() {
-            return edgeTail;
+        public int getArcHead() {
+            return arcHead;
         }
 
-        public void setEdgeTail(int edgeTail) {
-            this.edgeTail = edgeTail;
+        public void setArcHead(int arcHead) {
+            this.arcHead = arcHead;
         }
 
         public int getWeight() {

@@ -17,16 +17,16 @@ public class MatrixWeightGraph {
     /**
      *邻接矩阵
      */
-    private int[][] edge;
+    private int[][] arc;
 
     public MatrixWeightGraph(Object[] vertex, LinkInfo[] linkInfos) {
         this.vertex = vertex;
-        this.edge = new int[vertex.length][vertex.length];
+        this.arc = new int[vertex.length][vertex.length];
         initEdge();
 
         //构建邻接矩阵
         for (LinkInfo linkInfo : linkInfos) {
-            edge[linkInfo.edgeHead][linkInfo.edgeTail] = linkInfo.weight;
+            arc[linkInfo.arcHead][linkInfo.arcTail] = linkInfo.weight;
         }
     }
 
@@ -34,14 +34,14 @@ public class MatrixWeightGraph {
      * 初始化邻接矩阵
      */
     private void initEdge() {
-        int length = edge.length;
+        int length = arc.length;
         for (int i = 0; i < length; i++) {
             for (int j = 0; j < length; j++) {
                 if (i == j) {
-                    edge[i][j] = 0;
+                    arc[i][j] = 0;
                     continue;
                 }
-                edge[i][j] = INFINITY;
+                arc[i][j] = INFINITY;
             }
         }
     }
@@ -53,30 +53,30 @@ public class MatrixWeightGraph {
      * weight:权重
      */
     public static class LinkInfo {
-        int edgeTail;
-        int edgeHead;
+        int arcTail;
+        int arcHead;
         int weight;
 
-        public LinkInfo(int edgeTail, int edgeHead, int weight) {
-            this.edgeTail = edgeTail;
-            this.edgeHead = edgeHead;
+        public LinkInfo(int arcTail, int arcHead, int weight) {
+            this.arcTail = arcTail;
+            this.arcHead = arcHead;
             this.weight = weight;
         }
 
-        public int getEdgeHead() {
-            return edgeHead;
+        public int getArcTail() {
+            return arcTail;
         }
 
-        public void setEdgeHead(int edgeHead) {
-            this.edgeHead = edgeHead;
+        public void setArcTail(int arcTail) {
+            this.arcTail = arcTail;
         }
 
-        public int getEdgeTail() {
-            return edgeTail;
+        public int getArcHead() {
+            return arcHead;
         }
 
-        public void setEdgeTail(int edgeTail) {
-            this.edgeTail = edgeTail;
+        public void setArcHead(int arcHead) {
+            this.arcHead = arcHead;
         }
 
         public int getWeight() {
