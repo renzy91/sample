@@ -1,5 +1,15 @@
 package structure.graph;
 
+import com.sun.jmx.remote.internal.ArrayQueue;
+import com.sun.xml.internal.messaging.saaj.packaging.mime.util.QDecoderStream;
+
+import java.util.Deque;
+import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.Stack;
+import java.util.concurrent.BlockingDeque;
+import java.util.concurrent.LinkedBlockingQueue;
+
 /**
  * @author renzhiyong
  * @description:
@@ -25,8 +35,11 @@ public class DFS {
 
         graph.printEdges();
 
-        // v0,v1,v2,v5,v4,v6,v7,v3
-        graph.DFS(0);
+        // v0,v1,v2,v5,v4,v6,v3,v7
+//        graph.DFS(0);
+//        graph.DFSIter(0);
+
+        graph.bfs(0);
 
     }
 }
@@ -53,7 +66,66 @@ class MatrixGraph {
     }
 
     /**
-     * 深度优先搜索
+     * 深度优先搜素，栈实现
+     * @param vertexIndex
+     */
+    public void DFSIter(int vertexIndex) {
+        boolean[] record = new boolean[vertex.length];
+
+        Stack<Integer> vexStack = new Stack<>();
+
+        //访问当前顶点
+        System.out.print(vertex[vertexIndex] + " ");
+        record[vertexIndex] = true;
+        vexStack.push(vertexIndex);
+
+        while (true) {
+
+            for (int i = 0; i < vertex.length; i++) {
+                if (edges[vertexIndex][i] == 1 && !record[i]) {
+                    vertexIndex = i;
+                    System.out.print(vertex[vertexIndex] + " ");
+                    record[vertexIndex] = true;
+                    vexStack.push(vertexIndex);
+                    break;
+                }
+
+                if (i == vertex.length-1) {
+                    vertexIndex = vexStack.pop();
+                    break;
+                }
+            }
+
+            if (vexStack.empty()) {
+                break;
+            }
+        }
+    }
+
+    public void bfs(int vertexIndex) {
+        boolean[] record = new boolean[vertex.length];
+        LinkedBlockingQueue<Integer> queue = new LinkedBlockingQueue<>();
+
+        System.out.print(vertex[vertexIndex] + " ");
+        record[vertexIndex] = true;
+        queue.add(vertexIndex);
+
+        while (!queue.isEmpty()) {
+            vertexIndex = queue.poll();
+
+            for (int i = 0; i < vertex.length; i++) {
+                if (edges[vertexIndex][i] == 1 && !record[i]) {
+                    System.out.print(vertex[i] + " ");
+                    record[i] = true;
+                    queue.add(i);
+                }
+            }
+        }
+
+    }
+
+    /**
+     * 深度优先搜索，递归实现
      * @param vertexIndex 开始顶点下标
      */
     public void DFS(int vertexIndex) {
@@ -68,14 +140,15 @@ class MatrixGraph {
         }
 
         System.out.print(vertex[currentVexIndex] + " ");
+        record[currentVexIndex] = true;
 
-        for (int i = currentVexIndex; i < edges[currentVexIndex].length; i++) {
-            if (edges[currentVexIndex][i] == 1) {
-                record[currentVexIndex] = true;
+        for (int i = 0; i < edges[currentVexIndex].length; i++) {
+            if (edges[currentVexIndex][i] == 1 && !record[i]) {
                 doDFS(i, record);
             }
         }
     }
+
     public void printEdges() {
         for (int[] edge : edges) {
             for (int i : edge) {
