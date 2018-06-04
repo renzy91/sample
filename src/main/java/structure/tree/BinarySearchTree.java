@@ -6,7 +6,7 @@ package structure.tree;
  * @date 2018-06-01 11:31
  */
 public class BinarySearchTree {
-    private Node root;
+    protected Node root;
 
     public boolean delete(int i) {
         if (root == null) {
@@ -201,9 +201,19 @@ public class BinarySearchTree {
         private int e;
         private Node left;
         private Node right;
+        //AVL树使用
+        private int height;
 
         public Node(int e) {
             this.e = e;
+        }
+
+        public int getHeight() {
+            return height;
+        }
+
+        public void setHeight(int height) {
+            this.height = height;
         }
 
         public int getE() {
