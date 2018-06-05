@@ -48,6 +48,70 @@ public class AVLTree extends BinarySearchTree{
         return node;
     }
 
+    @Override
+    public boolean delete(int i) {
+        if (!exist(i)) {
+            return false;
+        }
+
+        root = del(root, i);
+        return true;
+    }
+
+    private Node del(Node node, int i) {
+        if (i == node .getE()) {
+            if (node.getLeft() == null && node.getRight() == null) {
+                return null;
+            }
+
+            if (node.getRight() == null) {
+                return node.getLeft();
+            }
+
+            if (node.getLeft() == null) {
+                return node.getRight();
+            }
+
+            Node n = findMax(node.getLeft());
+            node.setLeft(del(node.getLeft(), n.getE()));
+
+            node.setE(n.getE());
+
+            if (Math.abs(height(node.getLeft()) - height(node.getRight())) == 2) {
+                return leftRotate(node);
+            }
+
+            return node;
+        }
+
+        if (i < node.getE()) {
+            node.setLeft(del(node.getLeft(), i));
+            if (Math.abs(height(node.getLeft()) - height(node.getRight())) == 2) {
+                node = leftRotate(node);
+            }
+        } else {
+            node.setRight(del(node.getRight(), i));
+            if (Math.abs(height(node.getLeft()) - height(node.getRight())) == 2) {
+                node = rightRotate(node);
+            }
+        }
+
+        node.setHeight(Math.max(height(node.getLeft()), height(node.getRight())) + 1);
+        return node;
+    }
+
+    private Node findMax(Node node) {
+        if (node.getRight() == null) {
+            return node;
+        }
+
+        node = node.getRight();
+        while (node.getLeft() != null) {
+            node = node.getLeft();
+        }
+
+        return node;
+    }
     private Node leftRightRotate(Node node) {
         node.setLeft(leftRotate(node.getLeft()));
         return rightRotate(node);
@@ -95,6 +159,7 @@ public class AVLTree extends BinarySearchTree{
         tree.add(4);
         tree.add(6);
 
+        tree.delete(3);
 
         System.out.println();
     }
