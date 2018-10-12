@@ -1,8 +1,6 @@
 package structure.tree;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author renzhiyong
@@ -85,6 +83,27 @@ public class BinaryTree<E> {
         doPre(node.right);
     }
 
+    /**
+     * 层序-递归
+     */
+    public void levelorderTraversal() {
+        if (root==null) {
+            return;
+        }
+        Queue<Node> q = new LinkedList<>();
+        q.offer(root);
+        while (!q.isEmpty()) {
+            Node node = q.poll();
+            System.out.println(node.ele);
+            if (node.left != null) {
+                q.offer(node.left);
+            }
+            if (node.right != null) {
+                q.offer(node.right);
+            }
+        }
+    }
+
     class Node<E> {
         E ele;
         Node<E> left;
@@ -94,7 +113,7 @@ public class BinaryTree<E> {
     public static void main(String[] args) {
         BinaryTree<Integer> binTree = new BinaryTree<>(Arrays.asList(0,1,2,3,4,5,6,7,8,9));
 
-        binTree.suf();
+        binTree.levelorderTraversal();
 
     }
 
